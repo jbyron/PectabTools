@@ -8,10 +8,6 @@ namespace PectabTools.Lib.Atb {
 
         public int maxLength { get; set; }
 
-        public string printRow { get; set; }
-
-        public string printColumn { get; set; }
-
         public string trackId { get; set; }
 
         public string trackBlock { get; set; }

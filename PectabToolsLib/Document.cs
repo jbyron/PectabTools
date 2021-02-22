@@ -72,11 +72,11 @@ namespace PectabTools.Lib {
             } else {
                 regions.addRegion( new Region() {
                     name = "#document",
-                    coordRelativeTo = null,
-                    lowCoordX = 0,
-                    lowCoordY = 0,
-                    highCoordX = (int)paperWidthMm,
-                    highCoordY = (int)paperHeightMm,
+                    positionRelativeToRegion = null,
+                    printPositionRelative = new PrintPosition() {
+                        column = "0",
+                        row = "0"
+                    }
                 } );
 
             }

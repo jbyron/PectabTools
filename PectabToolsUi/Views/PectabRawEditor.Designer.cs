@@ -25,12 +25,6 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PectabRawEditor));
             this.tbcMain = new System.Windows.Forms.TabControl();
-            this.tbpPectab = new System.Windows.Forms.TabPage();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rtbPectab = new System.Windows.Forms.RichTextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.rtbSampleData = new System.Windows.Forms.RichTextBox();
             this.tbpDocSetup = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -45,22 +39,23 @@
             this.txtPaperWidth = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cboDocSetupTemplate = new System.Windows.Forms.ComboBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.btnFilename = new System.Windows.Forms.Button();
+            this.txtTemplateFile = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbpGrid = new System.Windows.Forms.TabPage();
             this.tbpJson = new System.Windows.Forms.TabPage();
             this.tbpCsv = new System.Windows.Forms.TabPage();
+            this.tbpPectab = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rtbPectab = new System.Windows.Forms.RichTextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rtbSampleData = new System.Windows.Forms.RichTextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRevert = new System.Windows.Forms.Button();
+            this.btnTemplateLoad = new System.Windows.Forms.Button();
+            this.btnTemplateSave = new System.Windows.Forms.Button();
             this.tbcMain.SuspendLayout();
-            this.tbpPectab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.tbpDocSetup.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
@@ -70,6 +65,13 @@
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.tbpPectab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbcMain
@@ -77,91 +79,17 @@
             this.tbcMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbcMain.Controls.Add(this.tbpPectab);
             this.tbcMain.Controls.Add(this.tbpDocSetup);
             this.tbcMain.Controls.Add(this.tbpGrid);
             this.tbcMain.Controls.Add(this.tbpJson);
             this.tbcMain.Controls.Add(this.tbpCsv);
+            this.tbcMain.Controls.Add(this.tbpPectab);
             this.tbcMain.Location = new System.Drawing.Point(2, 2);
             this.tbcMain.Name = "tbcMain";
             this.tbcMain.SelectedIndex = 0;
-            this.tbcMain.Size = new System.Drawing.Size(716, 263);
+            this.tbcMain.Size = new System.Drawing.Size(917, 528);
             this.tbcMain.TabIndex = 0;
             this.tbcMain.Selected += new System.Windows.Forms.TabControlEventHandler(this.tbcMain_Selected);
-            // 
-            // tbpPectab
-            // 
-            this.tbpPectab.Controls.Add(this.splitContainer1);
-            this.tbpPectab.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tbpPectab.Location = new System.Drawing.Point(4, 24);
-            this.tbpPectab.Name = "tbpPectab";
-            this.tbpPectab.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpPectab.Size = new System.Drawing.Size(708, 235);
-            this.tbpPectab.TabIndex = 0;
-            this.tbpPectab.Text = "PECTAB";
-            this.tbpPectab.UseVisualStyleBackColor = true;
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainer1.Size = new System.Drawing.Size(702, 229);
-            this.splitContainer1.SplitterDistance = 122;
-            this.splitContainer1.TabIndex = 0;
-            this.splitContainer1.Text = "splitContainer1";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.rtbPectab);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(702, 122);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "PECTAB";
-            // 
-            // rtbPectab
-            // 
-            this.rtbPectab.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbPectab.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbPectab.Location = new System.Drawing.Point(3, 16);
-            this.rtbPectab.Name = "rtbPectab";
-            this.rtbPectab.Size = new System.Drawing.Size(696, 103);
-            this.rtbPectab.TabIndex = 0;
-            this.rtbPectab.Text = resources.GetString("rtbPectab.Text");
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.rtbSampleData);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(702, 103);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Sample Data";
-            // 
-            // rtbSampleData
-            // 
-            this.rtbSampleData.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbSampleData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbSampleData.Location = new System.Drawing.Point(3, 16);
-            this.rtbSampleData.Name = "rtbSampleData";
-            this.rtbSampleData.Size = new System.Drawing.Size(696, 84);
-            this.rtbSampleData.TabIndex = 0;
-            this.rtbSampleData.Text = "BTP010301#018P9999#03YYZ#048P123#058P456#06YUL#08YYQ#09YYQ#0AABCDEF#0BMAILLET, NI" +
-    "CK#0C0622123457#0DREGULAR#0ECONFIRMED#0FVIP#13SEP/18/2015#1407:00#1ASSSS#2CYWG#";
             // 
             // tbpDocSetup
             // 
@@ -171,16 +99,19 @@
             this.tbpDocSetup.Controls.Add(this.groupBox3);
             this.tbpDocSetup.Location = new System.Drawing.Point(4, 24);
             this.tbpDocSetup.Name = "tbpDocSetup";
-            this.tbpDocSetup.Size = new System.Drawing.Size(708, 235);
+            this.tbpDocSetup.Size = new System.Drawing.Size(909, 500);
             this.tbpDocSetup.TabIndex = 4;
             this.tbpDocSetup.Text = "Document Setup";
             // 
             // groupBox6
             // 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox6.Controls.Add(this.splitContainer2);
-            this.groupBox6.Location = new System.Drawing.Point(3, 208);
+            this.groupBox6.Location = new System.Drawing.Point(3, 232);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(783, 171);
+            this.groupBox6.Size = new System.Drawing.Size(899, 265);
             this.groupBox6.TabIndex = 6;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Regions";
@@ -198,8 +129,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.lvwDocSetupRegionView);
-            this.splitContainer2.Size = new System.Drawing.Size(777, 149);
-            this.splitContainer2.SplitterDistance = 259;
+            this.splitContainer2.Size = new System.Drawing.Size(893, 243);
+            this.splitContainer2.SplitterDistance = 297;
             this.splitContainer2.TabIndex = 0;
             this.splitContainer2.Text = "splitContainer2";
             // 
@@ -208,7 +139,7 @@
             this.tvwDocSetupRegions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvwDocSetupRegions.Location = new System.Drawing.Point(0, 0);
             this.tvwDocSetupRegions.Name = "tvwDocSetupRegions";
-            this.tvwDocSetupRegions.Size = new System.Drawing.Size(259, 149);
+            this.tvwDocSetupRegions.Size = new System.Drawing.Size(297, 243);
             this.tvwDocSetupRegions.TabIndex = 0;
             // 
             // lvwDocSetupRegionView
@@ -217,7 +148,7 @@
             this.lvwDocSetupRegionView.HideSelection = false;
             this.lvwDocSetupRegionView.Location = new System.Drawing.Point(0, 0);
             this.lvwDocSetupRegionView.Name = "lvwDocSetupRegionView";
-            this.lvwDocSetupRegionView.Size = new System.Drawing.Size(514, 149);
+            this.lvwDocSetupRegionView.Size = new System.Drawing.Size(592, 243);
             this.lvwDocSetupRegionView.TabIndex = 0;
             this.lvwDocSetupRegionView.UseCompatibleStateImageBehavior = false;
             // 
@@ -225,7 +156,7 @@
             // 
             this.groupBox5.Controls.Add(this.cboDocSetupType);
             this.groupBox5.Controls.Add(this.label4);
-            this.groupBox5.Location = new System.Drawing.Point(3, 102);
+            this.groupBox5.Location = new System.Drawing.Point(3, 126);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(274, 100);
             this.groupBox5.TabIndex = 5;
@@ -255,7 +186,7 @@
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.txtPaperWidth);
             this.groupBox4.Controls.Add(this.label2);
-            this.groupBox4.Location = new System.Drawing.Point(315, 102);
+            this.groupBox4.Location = new System.Drawing.Point(283, 126);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(254, 100);
             this.groupBox4.TabIndex = 4;
@@ -296,35 +227,37 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.cboDocSetupTemplate);
-            this.groupBox3.Controls.Add(this.checkBox1);
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.btnTemplateSave);
+            this.groupBox3.Controls.Add(this.btnTemplateLoad);
+            this.groupBox3.Controls.Add(this.btnFilename);
+            this.groupBox3.Controls.Add(this.txtTemplateFile);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Location = new System.Drawing.Point(3, 21);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(783, 75);
+            this.groupBox3.Size = new System.Drawing.Size(899, 99);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Templates";
             // 
-            // cboDocSetupTemplate
+            // btnFilename
             // 
-            this.cboDocSetupTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboDocSetupTemplate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboDocSetupTemplate.FormattingEnabled = true;
-            this.cboDocSetupTemplate.Location = new System.Drawing.Point(134, 37);
-            this.cboDocSetupTemplate.Name = "cboDocSetupTemplate";
-            this.cboDocSetupTemplate.Size = new System.Drawing.Size(643, 23);
-            this.cboDocSetupTemplate.TabIndex = 2;
+            this.btnFilename.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnFilename.Location = new System.Drawing.Point(871, 40);
+            this.btnFilename.Name = "btnFilename";
+            this.btnFilename.Size = new System.Drawing.Size(22, 19);
+            this.btnFilename.TabIndex = 3;
+            this.btnFilename.Text = "...";
+            this.btnFilename.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // txtTemplateFile
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(104, 41);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.txtTemplateFile.Location = new System.Drawing.Point(104, 37);
+            this.txtTemplateFile.Name = "txtTemplateFile";
+            this.txtTemplateFile.ReadOnly = true;
+            this.txtTemplateFile.Size = new System.Drawing.Size(761, 23);
+            this.txtTemplateFile.TabIndex = 2;
             // 
             // label1
             // 
@@ -340,7 +273,7 @@
             this.tbpGrid.Location = new System.Drawing.Point(4, 24);
             this.tbpGrid.Name = "tbpGrid";
             this.tbpGrid.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpGrid.Size = new System.Drawing.Size(708, 235);
+            this.tbpGrid.Size = new System.Drawing.Size(909, 500);
             this.tbpGrid.TabIndex = 1;
             this.tbpGrid.Text = "Grid";
             this.tbpGrid.UseVisualStyleBackColor = true;
@@ -349,7 +282,7 @@
             // 
             this.tbpJson.Location = new System.Drawing.Point(4, 24);
             this.tbpJson.Name = "tbpJson";
-            this.tbpJson.Size = new System.Drawing.Size(708, 235);
+            this.tbpJson.Size = new System.Drawing.Size(909, 500);
             this.tbpJson.TabIndex = 3;
             this.tbpJson.Text = "Json";
             // 
@@ -357,14 +290,89 @@
             // 
             this.tbpCsv.Location = new System.Drawing.Point(4, 24);
             this.tbpCsv.Name = "tbpCsv";
-            this.tbpCsv.Size = new System.Drawing.Size(708, 235);
+            this.tbpCsv.Size = new System.Drawing.Size(909, 500);
             this.tbpCsv.TabIndex = 2;
             this.tbpCsv.Text = "Csv";
+            // 
+            // tbpPectab
+            // 
+            this.tbpPectab.Controls.Add(this.splitContainer1);
+            this.tbpPectab.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tbpPectab.Location = new System.Drawing.Point(4, 24);
+            this.tbpPectab.Name = "tbpPectab";
+            this.tbpPectab.Padding = new System.Windows.Forms.Padding(3);
+            this.tbpPectab.Size = new System.Drawing.Size(909, 500);
+            this.tbpPectab.TabIndex = 0;
+            this.tbpPectab.Text = "PECTAB";
+            this.tbpPectab.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
+            this.splitContainer1.Size = new System.Drawing.Size(903, 494);
+            this.splitContainer1.SplitterDistance = 263;
+            this.splitContainer1.TabIndex = 0;
+            this.splitContainer1.Text = "splitContainer1";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rtbPectab);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(903, 263);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "PECTAB";
+            // 
+            // rtbPectab
+            // 
+            this.rtbPectab.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbPectab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPectab.Location = new System.Drawing.Point(3, 16);
+            this.rtbPectab.Name = "rtbPectab";
+            this.rtbPectab.Size = new System.Drawing.Size(897, 244);
+            this.rtbPectab.TabIndex = 0;
+            this.rtbPectab.Text = resources.GetString("rtbPectab.Text");
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.rtbSampleData);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(903, 227);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Sample Data";
+            // 
+            // rtbSampleData
+            // 
+            this.rtbSampleData.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbSampleData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbSampleData.Location = new System.Drawing.Point(3, 16);
+            this.rtbSampleData.Name = "rtbSampleData";
+            this.rtbSampleData.Size = new System.Drawing.Size(897, 208);
+            this.rtbSampleData.TabIndex = 0;
+            this.rtbSampleData.Text = "BTP010301#018P9999#03YYZ#048P123#058P456#06YUL#08YYQ#09YYQ#0AABCDEF#0BMAILLET, NI" +
+    "CK#0C0622123457#0DREGULAR#0ECONFIRMED#0FVIP#13SEP/18/2015#1407:00#1ASSSS#2CYWG#";
             // 
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(558, 271);
+            this.btnSave.Enabled = false;
+            this.btnSave.Location = new System.Drawing.Point(759, 536);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 1;
@@ -375,7 +383,7 @@
             // btnRevert
             // 
             this.btnRevert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRevert.Location = new System.Drawing.Point(639, 271);
+            this.btnRevert.Location = new System.Drawing.Point(840, 536);
             this.btnRevert.Name = "btnRevert";
             this.btnRevert.Size = new System.Drawing.Size(75, 23);
             this.btnRevert.TabIndex = 2;
@@ -383,12 +391,33 @@
             this.btnRevert.UseVisualStyleBackColor = true;
             this.btnRevert.Click += new System.EventHandler(this.btnRevert_Click);
             // 
+            // btnTemplateLoad
+            // 
+            this.btnTemplateLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTemplateLoad.Enabled = false;
+            this.btnTemplateLoad.Location = new System.Drawing.Point(709, 66);
+            this.btnTemplateLoad.Name = "btnTemplateLoad";
+            this.btnTemplateLoad.Size = new System.Drawing.Size(75, 23);
+            this.btnTemplateLoad.TabIndex = 4;
+            this.btnTemplateLoad.Text = "Load";
+            this.btnTemplateLoad.UseVisualStyleBackColor = true;
+            // 
+            // btnTemplateSave
+            // 
+            this.btnTemplateSave.Enabled = false;
+            this.btnTemplateSave.Location = new System.Drawing.Point(790, 66);
+            this.btnTemplateSave.Name = "btnTemplateSave";
+            this.btnTemplateSave.Size = new System.Drawing.Size(75, 23);
+            this.btnTemplateSave.TabIndex = 5;
+            this.btnTemplateSave.Text = "Save";
+            this.btnTemplateSave.UseVisualStyleBackColor = true;
+            // 
             // PectabRawEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnRevert;
-            this.ClientSize = new System.Drawing.Size(719, 306);
+            this.ClientSize = new System.Drawing.Size(920, 571);
             this.Controls.Add(this.btnRevert);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.tbcMain);
@@ -396,13 +425,6 @@
             this.Text = "PectabRawEditor";
             this.Load += new System.EventHandler(this.PectabRawEditor_Load);
             this.tbcMain.ResumeLayout(false);
-            this.tbpPectab.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
             this.tbpDocSetup.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
@@ -415,6 +437,13 @@
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.tbpPectab.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -435,8 +464,6 @@
         private System.Windows.Forms.RichTextBox rtbSampleData;
         private System.Windows.Forms.TabPage tbpDocSetup;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ComboBox cboDocSetupTemplate;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.ComboBox cboDocSetupType;
@@ -450,5 +477,9 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.TreeView tvwDocSetupRegions;
         private System.Windows.Forms.ListView lvwDocSetupRegionView;
+        private System.Windows.Forms.Button btnFilename;
+        private System.Windows.Forms.TextBox txtTemplateFile;
+        private System.Windows.Forms.Button btnTemplateSave;
+        private System.Windows.Forms.Button btnTemplateLoad;
     }
 }

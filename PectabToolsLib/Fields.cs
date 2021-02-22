@@ -8,7 +8,7 @@ namespace PectabTools.Lib {
 
         #region Data
 
-        private Dictionary<string, Field> _col = new Dictionary<string, Field>();
+        private SortedDictionary<int, Field> _col = new SortedDictionary<int, Field>();
 
         #endregion
 
@@ -18,7 +18,7 @@ namespace PectabTools.Lib {
 
         public Fields( IEnumerable<Field> list ) {
             foreach ( Field fld in list ) {
-                _col.Add( fld.ident, fld );
+                _col.Add( int.Parse( fld.ident, System.Globalization.NumberStyles.HexNumber ), fld );
             }
         }
 
@@ -28,8 +28,8 @@ namespace PectabTools.Lib {
 
         public Field this[string ident] {
             get {
-                if ( _col.ContainsKey( ident ) ) {
-                    return _col[ident];
+                if ( _col.ContainsKey( int.Parse(ident, System.Globalization.NumberStyles.HexNumber ) ) ) {
+                    return _col[int.Parse( ident, System.Globalization.NumberStyles.HexNumber )];
                 } else {
                     throw new ArgumentException( "Item ident does not exist in collection" );
                 }
@@ -47,10 +47,10 @@ namespace PectabTools.Lib {
         #region Methods
 
         public void add( Field field, bool overrideExisting = false ) {
-            if ( overrideExisting && _col.ContainsKey( field.ident ) ) {
-                _col[field.ident] = field;
+            if ( overrideExisting && _col.ContainsKey( int.Parse(field.ident, System.Globalization.NumberStyles.HexNumber ) ) ) {
+                _col[int.Parse( field.ident, System.Globalization.NumberStyles.HexNumber )] = field;
             } else {
-                _col.Add( field.ident, field );
+                _col.Add( int.Parse( field.ident, System.Globalization.NumberStyles.HexNumber ), field );
             }
             return;
         }

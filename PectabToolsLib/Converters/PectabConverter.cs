@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using static PectabTools.Lib.BarcodeField;
 
 namespace PectabTools.Lib.Converters {
 
@@ -20,7 +21,8 @@ namespace PectabTools.Lib.Converters {
         private const string BTP_FIELDS_REGEX = @"^([A-F0-9]{2})([A-Z])(\d)(M|\s)([A-Z0-9])(\d{3})(\d{2})(\d{2})(\d{2})(.{0,20})";
 
         private const string ATB_HEADER_REGEX = @"^PT(\W)\1(\W)([A-Z]\d)([A-Z])\1(\W)(\W)\1([A-Z0-9]{1,5})\1([A-Z0-9]{1,5})\1([A-Z0-9]{1,5})\1";
-        private const string ATB_FIELDS_REGEX = @"^([0-9A-F]{2})(\d{2})(?:(?:([A-R]{1})(?:(\d{1}\d{1}){1}))*)(((\d{1})(\d{1})(\d\d){1})*)([A-R]{0,1})$";
+        private const string ATB_FIELDS_REGEX = @"^([0-9A-F]{2})(\d{2}|B[0-9P-Z])(?:(?:([A-R]{1})(?:(\d{1}\d{1}){1}))*)(((\d{1})(\d{1})(\d\d){1})*)([A-R]{0,1})$";
+            //@"^([0-9A-F]{2})(\d{2})(?:(?:([A-R]{1})(?:(\d{1}\d{1}){1}))*)(((\d{1})(\d{1})(\d\d){1})*)([A-R]{0,1})$";
         #endregion
 
         #region Constructor
@@ -237,11 +239,6 @@ namespace PectabTools.Lib.Converters {
 
                 Regex reFieldParse = new Regex( ATB_FIELDS_REGEX, RegexOptions.Compiled );
 
-
-
-
-
-
                 foreach ( string field in extractedFields ) {
 
                     Match match = reFieldParse.Match( field );
@@ -251,10 +248,27 @@ namespace PectabTools.Lib.Converters {
                         AtbField newField = new AtbField();
 
                         newField.ident = match.Groups[1].Value;
-                        newField.maxLength = int.Parse( match.Groups[2].Value );
-                        newField.printRow = match.Groups[3].Value;
-                        newField.printColumn = match.Groups[4].Value;
 
+                        if ( (match.Groups[2].Value.Length > 0) && (match.Groups[2].Value.Substring( 0, 1 ) == "B") ) {
+                            newField.barcodeField = new AtbBarcodeField();
+                            newField.barcodeField.barcodeType = getBarcodeAtbByString( match.Groups[2].Value.Substring( 1, 1 ) );
+
+                        } else {
+                            newField.maxLength = int.Parse( match.Groups[2].Value );
+                        }
+                        if ( match.Groups[3].Captures.Count == 0 ) {
+                            newField.printPositionsRelative.add( new PrintPosition() {
+                                row = match.Groups[3].Value,
+                                column = match.Groups[4].Value,
+                            } );
+                        } else {
+                            for ( int i = 0; i < match.Groups[3].Captures.Count; i++) {
+                                newField.printPositionsRelative.add( new PrintPosition() {
+                                    row = match.Groups[3].Captures[i].Value,
+                                    column = match.Groups[4].Captures[i].Value,
+                                } );
+                            }
+                        }
                         newField.trackId = match.Groups[5].Value;
                         newField.trackBlock = match.Groups[6].Value;
                         newField.trackPosition = match.Groups[7].Value;
@@ -267,13 +281,6 @@ namespace PectabTools.Lib.Converters {
                     }
                 }
 
-
-
-
-
-
-
-
             } catch ( Exception ex ) {
                 _log.Error( ex, "Caught Exception" );
                 throw;
@@ -282,6 +289,44 @@ namespace PectabTools.Lib.Converters {
             }
 
             return;
+        }
+
+        private static BarcodeTypes getBarcodeAtbByString( string atbBarcodeTypeCode ) {
+            BarcodeTypes fRv = BarcodeTypes.None; 
+
+            _log.Trace( "Begin" );
+
+            try {
+                atbBarcodeTypeCode = atbBarcodeTypeCode.Trim();
+
+                if ( atbBarcodeTypeCode.Length > 0 ) {
+                    switch ( atbBarcodeTypeCode.Substring( 0, 1 ).ToUpper() ) {
+                        case "5":   // QR       - Horizontal
+                            fRv = BarcodeTypes.Qr;
+                            break;
+
+                        case "6":   // PDF417   - Horizontal
+                        case "R":   // PDF417   - Vertical
+                            fRv = BarcodeTypes.Pdf417;
+                            break;
+
+                        case "V":   // Aztec
+                            fRv = BarcodeTypes.Aztec;
+                            break;
+
+                        default:
+                            fRv = BarcodeTypes.None;
+                            break;
+                    }
+                }
+            } catch ( Exception ex ) {
+                _log.Error( ex, "Caught Exception" );
+                throw;
+            } finally {
+                _log.Trace( "Done" );
+            }
+
+            return fRv;
         }
 
         private static BtpDocument fromPectabBtp( string pectab, Document docToMerge ) {
@@ -540,19 +585,21 @@ namespace PectabTools.Lib.Converters {
                 List<string> fields = new List<string>();
 
                 foreach(BtpField field in btpDoc.fields) {
-                    fields.Add( string.Format( "{0}{1}{2}{3}{4}{5:D3}{6:D2}{7:D2}{8:D2}{9}{10}",
-                            field.ident,
-                            field.elementType,
-                            field.elementChoice,
-                            field.mirrorIndicator ? "M" : " ",
-                            field.orientation,
-                            calculateFieldPositionVertical(btpDoc, field),
-                            calculateFieldPositionHorizontal(btpDoc, field),
-                            field.sizeHeight,
-                            field.sizeWidth,
-                            field.commonData,
-                            field.colourData
-                        ) );
+                    if ( field.visible ) {
+                        fields.Add( string.Format( "{0}{1}{2}{3}{4}{5:D3}{6:D2}{7:D2}{8:D2}{9}{10}",
+                                field.ident,
+                                field.elementType,
+                                field.elementChoice,
+                                field.mirrorIndicator ? "M" : " ",
+                                field.orientation,
+                                int.Parse( calculateFieldPositionVertical( btpDoc, field ) ),
+                                int.Parse( calculateFieldPositionHorizontal( btpDoc, field ) ),
+                                field.sizeHeight,
+                                field.sizeWidth,
+                                field.commonData,
+                                field.colourData
+                            ) );
+                    }
                 }
 
                 fRv = string.Join( btpDoc.fieldSeparator, fields.ToArray() );
@@ -567,14 +614,14 @@ namespace PectabTools.Lib.Converters {
             return fRv;
         }
 
-        private static int calculateFieldPositionVertical( Document doc, Field field ) {
-            int fRv = 0;
+        private static string calculateFieldPositionVertical( Document doc, Field field ) {
+            string fRv = "0";
 
             _log.Trace( "Begin" );
 
             try {
                 if ( field is BtpField ) {
-                    fRv += int.Parse( field.printPositionsRelative[0].row );
+                    fRv = string.Format("{0:D}", int.Parse(fRv) + int.Parse( field.printPositionsRelative[0].row ));
                 } else {
                     throw new NotImplementedException("Cannot calculate field position - vertical - " + field.GetType().Name );
                 }
@@ -587,10 +634,14 @@ namespace PectabTools.Lib.Converters {
 
                 while ( containingRegion != null ) {
 
-                    fRv += containingRegion.lowCoordY;
+                    if ( field is BtpField ) {
+                        fRv = string.Format( "{0:D}", int.Parse( fRv ) + int.Parse(containingRegion.printPositionRelative.row ) );
+                    } else {
+                        throw new NotImplementedException( "Cannot calculate field position - vertical - " + field.GetType().Name );
+                    }
 
-                    if ( containingRegion.coordRelativeTo != null ) {
-                        containingRegion = doc.regions[containingRegion.coordRelativeTo];
+                    if ( containingRegion.positionRelativeToRegion != null ) {
+                        containingRegion = doc.regions[containingRegion.positionRelativeToRegion];
                     } else {
                         containingRegion = null;
                     }
@@ -606,14 +657,14 @@ namespace PectabTools.Lib.Converters {
             return fRv;
         }
 
-        private static int calculateFieldPositionHorizontal( Document doc, Field field ) {
-            int fRv = 0;
+        private static string calculateFieldPositionHorizontal( Document doc, Field field ) {
+            string fRv = "0";
 
             _log.Trace( "Begin" );
 
             try {
                 if ( field is BtpField ) {
-                    fRv += int.Parse( field.printPositionsRelative[0].column );
+                    fRv = string.Format( "{0:D}", int.Parse( fRv ) + int.Parse( field.printPositionsRelative[0].column ) );
                 } else {
                     throw new NotImplementedException( "Cannot calculate field position - vertical - " + field.GetType().Name );
                 }
@@ -626,10 +677,14 @@ namespace PectabTools.Lib.Converters {
 
                 while ( containingRegion != null ) {
 
-                    fRv += containingRegion.lowCoordX;
+                    if ( field is BtpField ) {
+                        fRv = string.Format( "{0:D}", int.Parse( fRv ) + int.Parse( containingRegion.printPositionRelative.column ) );
+                    } else {
+                        throw new NotImplementedException( "Cannot calculate field position - vertical - " + field.GetType().Name );
+                    }
 
-                    if ( containingRegion.coordRelativeTo != null ) {
-                        containingRegion = doc.regions[containingRegion.coordRelativeTo];
+                    if ( containingRegion.positionRelativeToRegion != null ) {
+                        containingRegion = doc.regions[containingRegion.positionRelativeToRegion];
                     } else {
                         containingRegion = null;
                     }

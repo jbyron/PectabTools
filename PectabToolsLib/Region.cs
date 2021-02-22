@@ -8,15 +8,9 @@ namespace PectabTools.Lib {
         public string name { get; set; }
 
         /// <summary>The name of the region this item's coordinate relate to. Null indicates this is the #document region</summary>
-        public string coordRelativeTo { get; set; }
+        public string positionRelativeToRegion { get; set; }
 
-        public int lowCoordX { get; set; }
-
-        public int lowCoordY { get; set; }
-
-        public int highCoordX { get; set; }
-
-        public int highCoordY { get; set; }
+        public PrintPosition printPositionRelative { get; set; } = new PrintPosition() { row = "0", column = "0" };
 
     }
 }

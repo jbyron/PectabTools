@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using PectabTools.Lib;
 using PectabTools.Lib.Atb;
@@ -24,22 +25,10 @@ namespace PectabToolsTests.ConverterTests {
 
             string json = PectabConverter.toJson( doc );
             Assert.IsNotEmpty( json );
+            Assert.DoesNotThrow( () => JObject.Parse( json ) );
 
             return;
         }
-
-        [Test]
-        public void toPectabJsonAtbSimple() {
-
-            Document doc = PectabConverter.fromPectab( TestData.ATB_PECTAB_JSON_SIMPLE );
-            string json = PectabConverter.toJson( doc );
-
-            Assert.Fail( "Not Yet Implemented" );
-
-            return;
-        }
-
-
 
         [Test]
         public void fromJsonToObjectBtpLive21() {
@@ -87,6 +76,24 @@ namespace PectabToolsTests.ConverterTests {
             string pectab = PectabConverter.toPectab( doc );
 
             Assert.IsNotEmpty( pectab );
+            Assert.AreEqual( TestData.BTP_LIVE_19IN_DOC_3BONGO_REC_PECTAB, pectab );
+
+            return;
+        }
+
+        [Test]
+        public void fromJsonToPectabBtpLive16_VJ() {
+            Document doc = PectabConverter.fromJson( TestData.BTP_16IN_WORK_V1 );
+
+            Assert.IsInstanceOf<BtpDocument>( doc, "Expected doc to be type BTP" );
+            Assert.AreEqual( doc.pectabType, DocumentTypes.Btp );
+            Assert.IsTrue( doc.regions.count > 3 );
+            Assert.IsTrue( doc.fields.count > 5 );
+
+            string pectab = PectabConverter.toPectab( doc );
+
+            Assert.IsNotEmpty( pectab );
+            Assert.AreEqual( TestData.BTP_16IN_WORK_V1_PT, pectab );
 
             return;
         }

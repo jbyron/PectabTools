@@ -23,32 +23,32 @@ namespace PectabToolsTests.ConverterTests {
 
             doc.regions.addRegion( new Region() {
                 name = "Receipt",
-                coordRelativeTo = "#document"
+                positionRelativeToRegion = "#document"
             } );
 
             doc.regions.addRegion( new Region() {
                 name = "MirroredSection",
-                coordRelativeTo = "#document"
+                positionRelativeToRegion = "#document"
             } );
 
             doc.regions.addRegion( new Region() {
                 name = "Bongos",
-                coordRelativeTo = "#document"
+                positionRelativeToRegion = "#document"
             } );
 
             doc.regions.addRegion( new Region() {
                 name = "Bongo1",
-                coordRelativeTo = "Bongos"
+                positionRelativeToRegion = "Bongos"
             } );
 
             doc.regions.addRegion( new Region() {
                 name = "Bongo2",
-                coordRelativeTo = "Bongos"
+                positionRelativeToRegion = "Bongos"
             } );
 
             doc.regions.addRegion( new Region() {
                 name = "Bongo3",
-                coordRelativeTo = "Bongos"
+                positionRelativeToRegion = "Bongos"
             } );
 
             var json = PectabConverter.toJson( doc );

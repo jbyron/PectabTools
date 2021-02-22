@@ -25,6 +25,8 @@ namespace PectabTools.Lib {
 
         public PrintPositions printPositionsRelative { get; set; } = new PrintPositions();
 
+        public virtual BarcodeField barcodeField { get; set; }
+
         #endregion
 
     }

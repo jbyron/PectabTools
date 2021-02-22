@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Newtonsoft.Json.Linq;
+using NUnit.Framework;
 using PectabTools.Lib;
 using PectabTools.Lib.Atb;
 using PectabTools.Lib.Btp;
@@ -22,6 +23,43 @@ namespace PectabToolsTests.ConverterTests {
             Assert.AreEqual( 2, doc.fields.count );
             Assert.AreEqual( 203.2F, doc.paperWidthMm );
 
+            return;
+        }
+
+        [Test]
+        public void fromPectabAtbToJsonStandard() {
+
+            string pectab = TestData.ATB_LIVE_STANDARD;
+            Document doc = PectabConverter.fromPectab( pectab );
+
+            Assert.IsInstanceOf<AtbDocument>( doc, "Expected doc to be type ATB" );
+            Assert.AreEqual( DocumentTypes.Atb, doc.pectabType );
+            Assert.AreEqual( 26, doc.fields.count );
+            Assert.AreEqual( 203.2F, doc.paperWidthMm );
+
+            string json = PectabConverter.toJson( doc );
+
+            Assert.IsNotEmpty( json );
+            Assert.DoesNotThrow( () => JObject.Parse( json ) );
+
+            return;
+        }
+
+        [Test]
+        public void fromPectabAtbToJson3H() {
+
+            string pectab = TestData.ATB_LIVE_3H;
+            Document doc = PectabConverter.fromPectab( pectab );
+
+            Assert.IsInstanceOf<AtbDocument>( doc, "Expected doc to be type ATB" );
+            Assert.AreEqual( DocumentTypes.Atb, doc.pectabType );
+            Assert.AreEqual( 21, doc.fields.count );
+            Assert.AreEqual( 203.2F, doc.paperWidthMm );
+            
+            string json = PectabConverter.toJson( doc );
+
+            Assert.IsNotEmpty( json );
+            Assert.DoesNotThrow( () => JObject.Parse( json ) );
             return;
         }
 
@@ -72,8 +110,8 @@ namespace PectabToolsTests.ConverterTests {
 
             // 0266E07D
             Assert.AreEqual( 66, ((AtbField)doc.fields["02"]).maxLength );
-            Assert.AreEqual( "E", ((AtbField)doc.fields["02"]).printRow );
-            Assert.AreEqual( "07", ((AtbField)doc.fields["02"]).printColumn );
+            Assert.AreEqual( "E", ((AtbField)doc.fields["02"]).printPositionsRelative[0].row );
+            Assert.AreEqual( "07", ((AtbField)doc.fields["02"]).printPositionsRelative[0].column );
             Assert.AreEqual( "D", ((AtbField)doc.fields["02"]).elementSteeringCmd );
 
             return;
@@ -87,7 +125,22 @@ namespace PectabToolsTests.ConverterTests {
             Assert.IsInstanceOf<AtbDocument>( doc, "Expected doc to be type ATB" );
             Assert.AreEqual( doc.pectabType, DocumentTypes.Atb );
 
-            Assert.Fail( "Not Implemented" );
+            // 0101#0266E07D#1305J35L64D#
+            Assert.AreEqual( 1, ((AtbField)doc.fields["01"]).maxLength );
+
+            // 0101#0266E07D#1305J35L64D#
+            Assert.AreEqual( 66, ((AtbField)doc.fields["02"]).maxLength );
+            Assert.AreEqual( "E", ((AtbField)doc.fields["02"]).printPositionsRelative[0].row );
+            Assert.AreEqual( "07", ((AtbField)doc.fields["02"]).printPositionsRelative[0].column );
+            Assert.AreEqual( "D", ((AtbField)doc.fields["02"]).elementSteeringCmd );
+
+            // 0101#0266E07D#1305J35L64D#
+            Assert.AreEqual( 05, ((AtbField)doc.fields["13"]).maxLength );
+            Assert.AreEqual( "J", ((AtbField)doc.fields["13"]).printPositionsRelative[0].row );
+            Assert.AreEqual( "35", ((AtbField)doc.fields["13"]).printPositionsRelative[0].column );
+            Assert.AreEqual( "L", ((AtbField)doc.fields["13"]).printPositionsRelative[1].row );
+            Assert.AreEqual( "64", ((AtbField)doc.fields["13"]).printPositionsRelative[1].column );
+            Assert.AreEqual( "D", ((AtbField)doc.fields["13"]).elementSteeringCmd );
 
             return;
         }
@@ -139,6 +192,7 @@ namespace PectabToolsTests.ConverterTests {
             Assert.AreEqual( doc.pectabType, DocumentTypes.Btp );
 
             Assert.IsNotEmpty( json );
+            Assert.DoesNotThrow( () => JObject.Parse( json ) );
 
             return;
         }
