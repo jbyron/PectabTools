@@ -31,6 +31,23 @@ namespace PectabToolsTests.ConverterTests {
         }
 
         [Test]
+        public void fromPectabToJsonAtbLiveStandard() {
+
+            Document doc = PectabConverter.fromPectab( TestData.ATB_LIVE_STANDARD_PECTAB );
+
+            Assert.IsInstanceOf<AtbDocument>( doc, "Expected doc to be type ATB" );
+            Assert.AreEqual( DocumentTypes.Atb, doc.pectabType );
+            //Assert.AreEqual( 2, doc.fields.count );
+            //Assert.AreEqual( 203.2F, doc.paperWidthMm );
+
+            string json = PectabConverter.toJson( doc );
+            Assert.IsNotEmpty( json );
+            Assert.DoesNotThrow( () => JObject.Parse( json ) );
+
+            return;
+        }
+
+        [Test]
         public void fromJsonToObjectBtpLive21() {
 
             Document doc = PectabConverter.fromJson( TestData.BTP_LIVE_21IN_3BONGO_DOC_REC_JSON );
@@ -105,6 +122,23 @@ namespace PectabToolsTests.ConverterTests {
 
             Assert.IsNotEmpty( pectab );
             Assert.AreEqual( TestData.BTP_LIVE_21IN_3BONGO_DOC_REC_PECTAB, pectab );
+
+            return;
+        }
+
+        [Test]
+        public void fromJsonToPectabAtbLive_VJ() {
+            Document doc = PectabConverter.fromJson( TestData.ATB_LIVE_VJ_JSON );
+
+            Assert.IsInstanceOf<AtbDocument>( doc, "Expected doc to be type ATB" );
+            Assert.AreEqual( doc.pectabType, DocumentTypes.Atb );
+            Assert.AreEqual ( 2, doc.regions.count );
+            Assert.IsTrue( doc.fields.count > 5 );
+
+            string pectab = PectabConverter.toPectab( doc );
+
+            Assert.IsNotEmpty( pectab );
+            Assert.AreEqual( TestData.ATB_LIVE_VJ_PECTAB, pectab );
 
             return;
         }

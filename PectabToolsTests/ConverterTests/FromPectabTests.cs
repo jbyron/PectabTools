@@ -29,7 +29,7 @@ namespace PectabToolsTests.ConverterTests {
         [Test]
         public void fromPectabAtbToJsonStandard() {
 
-            string pectab = TestData.ATB_LIVE_STANDARD;
+            string pectab = TestData.ATB_LIVE_STANDARD_PECTAB;
             Document doc = PectabConverter.fromPectab( pectab );
 
             Assert.IsInstanceOf<AtbDocument>( doc, "Expected doc to be type ATB" );
